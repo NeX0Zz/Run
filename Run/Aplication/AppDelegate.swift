@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Run
-//
-//  Created by Денис Николаев on 27.02.2024.
-//
-
 import UIKit
 
 @main
