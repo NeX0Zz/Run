@@ -2,25 +2,25 @@ import UIKit
 
 class UserTableViewCell: UITableViewCell {
     
-    lazy var dateLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    lazy var kmLabel: UILabel = {
+    private lazy var kmLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    lazy var kcalLabel: UILabel = {
+    private lazy var kcalLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    lazy var rightSideLabel: UILabel = {
+    private lazy var rightSideLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,17 +41,21 @@ class UserTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented" )
     }
     
-    func configCell(with user: User){
-        
-        kcalLabel.text = user.kcal
-        dateLabel.text = user.date
-        rightSideLabel.text = user.steps
-        kmLabel.text = user.kilo
-        
+    func configure(with stepCount: Double, date: Date, kcal: Double, meter: Double) {
+        rightSideLabel.text = "\(Int(stepCount)) steps"
+        dateLabel.text = formatDate(date)
+        kcalLabel.text = "\(Int(kcal)) kcal"
+        kmLabel.text = "\(Int(meter)) m"
+    }
+    
+   private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM"
+        return formatter.string(from: date)
     }
     
     func setupLayout(){
-                
+        
         let mainStackView = UIStackView(arrangedSubviews: [dateLabel, kmLabel])
         mainStackView.axis = .vertical
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
